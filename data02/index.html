@@ -1,0 +1,25 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: rkz
+ * @Date: 2021-01-16 11:39:45
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2021-01-16 16:30:09
+-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    // axios.get('/user').then(res=>{
+    //     res.data
+    // }).then(users => console.log(users))
+    (async () => {
+        axios.defaults.baseURL = 'http://localhost:3002';  
+        axios.defaults.withCredentials = true;
+        const res = await axios.get('/users',{
+            headers:{
+                'X-Token': 'jilei'
+            }
+        })
+        console.log('data', res.data)
+    })()
+</script>
+页面加载了
