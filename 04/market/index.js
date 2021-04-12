@@ -4,12 +4,13 @@
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-02-19 22:28:27
+ * @LastEditTime: 2021-03-17 10:17:10
  */
 // const request = require("request");
 const express = require('express');
 const app = express();
 const path = require('path');
+const { get } = require('request');
 const mongo = require('./models/db');
 
 // 允许express处理提交过来的数据
@@ -46,17 +47,28 @@ app.post('/api/add', async (req, res) => {
         const col = mongo.col("fruits");
         await col.insertOne({
             name: data.name,
-            price: parseFloat(data.price)
+            price: parseFloat(data.price),
+            category: data.category,
         })
         res.json({ status: '0', data: null, message: '新增成功' })
     } catch (error) {
         console.log(error)
     }
+})
+// 修改数据
 
-    // .then(res => {
-    //     res.json({ status: '0', message: res })
-    // })
-    // .catch(e => { res.json({ status: 'error', message: e }) })
+app.post("/api/check", async (req, res) => {
+    console.log('6666666666', req.body)
+    const col = mongo.col("fruits");
+    await col.update(
+        { name: req.body.name },
+        { category: req.body.category},
+        {
+            $set: { check: !req.body.check }
+        }
+
+    )
+    res.json({ status: '0', data: null, message: '修改成功！' })
 
 })
 // 删除数据
@@ -71,6 +83,38 @@ app.delete('/api/delete', async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-
 })
-app.listen(3000);
+
+// 两个表查询
+app.get('/api/product', async(req, res) => {
+    const productdb = mongo.col("product");
+    const orderdb = mongo.col("order");
+    const userdb = mongo.col("user");
+    const col = await mongo.col("fruits");
+    try {
+        let data = await mongo.col('order').aggregate([
+            // {
+            //     $group:{
+            //         _id: '$productname',
+            //         rs: {$sum: "$price"}
+            //     }
+            // }
+            {
+                $lookup:
+                {
+                    from: "productdb",
+                    localField: "pid",
+                    foreignField: "_id",
+                    as: "inventory_docs"
+                }
+            },
+            
+        ]).limit(10).toArray();
+        console.log('000000000',await data);
+        res.json({ ok: 1, data: { data}})
+    } catch(e){
+        console.log(e)
+    }
+})
+
+app.listen(3009);
