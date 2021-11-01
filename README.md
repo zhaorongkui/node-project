@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-01-16 09:05:34
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-11-01 10:45:43
+ * @LastEditTime: 2021-11-01 14:04:02
 -->
 <!-- 初始化npm init -y -->
 <!-- npm i -g nodemon -->
@@ -33,6 +33,6 @@ docker rmi 镜像id 删除镜像：
  <!-- 03 -->
  cnpm i mysql --save
 
- 本地测试项目没有上传git
+ 本地测试项目没已经上传git
 
  node 搭建的后端测试test 项目，启动方式为，cd到当前文件夹下，node 文件名启动
