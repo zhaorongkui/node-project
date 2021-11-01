@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-03-17 10:17:10
+ * @LastEditTime: 2021-10-31 14:39:27
  */
 // const request = require("request");
 const express = require('express');
@@ -118,3 +118,4 @@ app.get('/api/product', async(req, res) => {
 })
 
 app.listen(3009);
+// cd 到market 文件夹， 输入node index 回车起服务，

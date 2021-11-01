@@ -9,7 +9,7 @@ services:
     image: mongo-express
     restart: always 
     ports:
-      - 8081:8081
+      - 8089:8089
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
