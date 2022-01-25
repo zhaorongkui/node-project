@@ -3,8 +3,8 @@
  * @version: 
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
- * @LastEditors: sueRimn
- * @LastEditTime: 2021-10-31 14:39:27
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-01-25 16:17:42
  */
 // const request = require("request");
 const express = require('express');
@@ -49,6 +49,8 @@ app.post('/api/add', async (req, res) => {
             name: data.name,
             price: parseFloat(data.price),
             category: data.category,
+            website: data.website,
+            introduction: data.introduction
         })
         res.json({ status: '0', data: null, message: '新增成功' })
     } catch (error) {

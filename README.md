@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-01-16 09:05:34
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-11-16 18:32:55
+ * @LastEditTime: 2021-12-01 14:55:42
 -->
 <!-- 初始化npm init -y -->
 <!-- npm i -g nodemon -->
@@ -74,4 +74,20 @@ docker rmi 镜像id 删除镜像：
  docker logs -f myweb
  docker container stop myweb // 停止容器
  docker container rm myweb  // 删除容器
+ docker image rm id //删除镜像
  docker ps
+
+
+ scp -r C:/deask/test root@192.168.16.5:/usr/tools/xxxx  将本地文件夹，上传到远程服务器
+ 
+ pm2 start process.yml  启动pm2 服务
+
+ 用netstat -ntlp查看监听端口，有无3000
+ 解决方法：执行ps -ef|grep pm2找到PM2的进程，kill -9 杀掉，再执行pm2 start
+
+ pm2 stop all 停止所有进程
+
+ pm2 list 查看进程
+ pm2 restart all 重启所有进程
+
+ pm2 show 0 获取去日志中查看报错信息
