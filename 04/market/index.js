@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-01-26 16:35:59
+ * @LastEditTime: 2022-02-08 14:41:16
  */
 // const request = require("request");
 const express = require('express');
@@ -12,6 +12,7 @@ const app = express();
 const path = require('path');
 const { get } = require('request');
 const mongo = require('./models/db');
+const objectId = require('mongodb').ObjectID;;
 
 // 允许express处理提交过来的数据
 app.use(express.json());
@@ -38,7 +39,18 @@ app.get('/api/list', async (req, res) => {
         console.log(error);
     }
 });
-
+app.get('/api/infoById', async (req, res) => {
+    console.log(req.query);
+    const id = req.query.id;
+    try {
+        const col = mongo.col("fruits");
+        const fruitInfo = await col.findOne({_id:objectId(id)})
+        console.log(fruitInfo);
+        res.json({ status: '0', data: fruitInfo});
+    } catch (error) {
+        console.log(error);
+    }
+});
 // 新增数据
 app.post('/api/add', async (req, res) => {
     const data = req.body;
