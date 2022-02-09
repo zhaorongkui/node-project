@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-02-08 14:41:16
+ * @LastEditTime: 2022-02-09 11:12:10
  */
 // const request = require("request");
 const express = require('express');
@@ -44,9 +44,9 @@ app.get('/api/infoById', async (req, res) => {
     const id = req.query.id;
     try {
         const col = mongo.col("fruits");
-        const fruitInfo = await col.findOne({_id:objectId(id)})
+        const fruitInfo = await col.findOne({ _id: objectId(id) });
         console.log(fruitInfo);
-        res.json({ status: '0', data: fruitInfo});
+        res.json({ status: '0', data: fruitInfo });
     } catch (error) {
         console.log(error);
     }
@@ -74,11 +74,16 @@ app.post('/api/add', async (req, res) => {
 app.post("/api/check", async (req, res) => {
     console.log('修改数据', req.body);
     const col = mongo.col("fruits");
-    await col.update(
-        { name: req.body.name },
-        { category: req.body.category },
+    await col.updateOne(
+        { _id: objectId(req.body.id) },
         {
-            $set: { check: !req.body.check }
+            $set: {
+                name: req.body.name,
+                price: parseFloat(req.body.price),
+                category: req.body.category,
+                website: req.body.website,
+                introduction: req.body.introduction
+            }
         }
     );
     res.json({ status: '0', data: null, message: '修改成功！' });
