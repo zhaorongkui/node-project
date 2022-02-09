@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-02-09 11:12:10
+ * @LastEditTime: 2022-02-09 11:39:48
  */
 // const request = require("request");
 const express = require('express');
@@ -12,7 +12,7 @@ const app = express();
 const path = require('path');
 const { get } = require('request');
 const mongo = require('./models/db');
-const objectId = require('mongodb').ObjectID;;
+const objectId = require('mongodb').ObjectID;
 
 // 允许express处理提交过来的数据
 app.use(express.json());
