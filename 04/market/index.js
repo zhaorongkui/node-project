@@ -4,7 +4,7 @@
  * @Author: rkz
  * @Date: 2021-02-15 16:00:41
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-02-09 11:39:48
+ * @LastEditTime: 2022-02-15 10:55:43
  */
 // const request = require("request");
 const express = require('express');
@@ -13,6 +13,7 @@ const path = require('path');
 const { get } = require('request');
 const mongo = require('./models/db');
 const objectId = require('mongodb').ObjectID;
+const currentDate = require('../commont/commont');// 新增修改时，添加当前入库时间
 
 // 允许express处理提交过来的数据
 app.use(express.json());
@@ -51,6 +52,7 @@ app.get('/api/infoById', async (req, res) => {
         console.log(error);
     }
 });
+
 // 新增数据
 app.post('/api/add', async (req, res) => {
     const data = req.body;
@@ -62,7 +64,9 @@ app.post('/api/add', async (req, res) => {
             price: parseFloat(data.price),
             category: data.category,
             website: data.website,
-            introduction: data.introduction
+            introduction: data.introduction,
+            createTime: currentDate(),
+            updateTime: null
         });
         res.json({ status: '0', data: null, message: '新增成功' });
     } catch (error) {
@@ -74,6 +78,7 @@ app.post('/api/add', async (req, res) => {
 app.post("/api/check", async (req, res) => {
     console.log('修改数据', req.body);
     const col = mongo.col("fruits");
+    const fruitInfo = await col.findOne({ _id: objectId(req.body.id) });
     await col.updateOne(
         { _id: objectId(req.body.id) },
         {
@@ -82,7 +87,9 @@ app.post("/api/check", async (req, res) => {
                 price: parseFloat(req.body.price),
                 category: req.body.category,
                 website: req.body.website,
-                introduction: req.body.introduction
+                introduction: req.body.introduction,
+                createTime: fruitInfo.createTime,
+                updateTime: currentDate()
             }
         }
     );
