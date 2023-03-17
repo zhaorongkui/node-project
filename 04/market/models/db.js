@@ -40,11 +40,11 @@ const MongoClient = require("mongodb").MongoClient;
 class Mongodb {
   constructor(conf) {
     // 保存conf
-    this.conf=conf;
+    this.conf = conf;
 
     this.emmiter = new EventEmitter();
     // 连接
-    this.client = new MongoClient(conf.url, { useNewUrlParser: true });
+    this.client = new MongoClient(conf.url, { useNewUrlParser: true, useUnifiedTopology: true });
     this.client.connect(err => {
       if (err) throw err;
       console.log("连接成功");
