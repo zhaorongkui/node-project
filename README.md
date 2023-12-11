@@ -13,7 +13,9 @@
 <!-- npm i live-server -g -->
 <!-- npm i mysql --save -->
 <!-- docker运行 -->
- docker-compose up
+docker 起服务命令
+docker-compose up
+D:\workspace\works\node-project\04\market> docker-compose up
 
  docker ps -a查看当前运行下的镜像进程
 
